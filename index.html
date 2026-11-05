@@ -812,14 +812,35 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // ==============================================================================
+        // 🚀 PARA HOSPEDAR NO GITHUB COM SEU PRÓPRIO FIREBASE:
+        // Descomente o bloco abaixo e cole as credenciais do seu projeto Firebase!
+        // ==============================================================================
+        const meuFirebaseConfig = null; // Quando for para o GitHub, troque 'null' pelo objeto abaixo:
+        /*
+        const meuFirebaseConfig = {
+            apiKey: "SUA_API_KEY",
+            authDomain: "seu-projeto.firebaseapp.com",
+            projectId: "seu-projeto",
+            storageBucket: "seu-projeto.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
+        };
+        */
+
         // Firebase Setup Config
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'financas-vitor-thais-app';
         let db = null;
         let auth = null;
         let currentUser = null;
 
-        // Shared database path following mandatory rule: /artifacts/{appId}/public/data/shared_finance
-        const DATA_COLLECTION_PATH = ['artifacts', appId, 'public', 'data'];
+        // Caminho do Banco de Dados
+        // Nota: Quando você colocar no GitHub, pode mudar este array para algo 
+        // mais limpo, como: const DATA_COLLECTION_PATH = ['financas', 'casal_data'];
+        let DATA_COLLECTION_PATH = ['artifacts', appId, 'public', 'data'];
+        if (meuFirebaseConfig) {
+            DATA_COLLECTION_PATH = ['financas', 'casal_data'];
+        }
 
         // Initial Seed Data (Inspired by Reference Image 2)
         const initialSeedData = {
@@ -866,15 +887,25 @@
 
         // Try initializing Firebase
         try {
-            if (typeof __firebase_config !== 'undefined' && __firebase_config) {
-                const firebaseConfig = JSON.parse(__firebase_config);
-                const app = initializeApp(firebaseConfig);
+            let activeConfig = null;
+
+            if (meuFirebaseConfig) {
+                activeConfig = meuFirebaseConfig; // Usa o seu Firebase próprio no GitHub
+            } else if (typeof __firebase_config !== 'undefined' && __firebase_config) {
+                activeConfig = JSON.parse(__firebase_config); // Usa o Firebase de teste desta plataforma
+            }
+
+            if (activeConfig) {
+                const app = initializeApp(activeConfig);
                 db = getFirestore(app);
                 auth = getAuth(app);
 
                 // Authenticate
                 const initAuth = async () => {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    if (meuFirebaseConfig) {
+                        // Autenticação anônima padrão para o seu próprio Firebase
+                        await signInAnonymously(auth);
+                    } else if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                         await signInWithCustomToken(auth, __initial_auth_token);
                     } else {
                         await signInAnonymously(auth);
