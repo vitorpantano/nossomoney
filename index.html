@@ -814,7 +814,6 @@
         // ==============================================================================
         // 🚀 CONFIGURAÇÃO DO SEU FIREBASE ("Nosso Money")
         // ==============================================================================
-        // COLE SUA apiKey QUE COMEÇA COM "AIzaSy..." ABAIXO:
         const firebaseConfig = {
             apiKey: "AIzaSyDmj3DbCQQ5BKm0WiBpGeF8d6SwWbKtR54",
             authDomain: "nosso-money-1737e.firebaseapp.com",
@@ -823,17 +822,7 @@
             messagingSenderId: "143232679060",
             appId: "1:143232679060:web:3e4d32fa59d1f425554881",
             measurementId: "G-8FCMG82TTV"
-            };
-        
-        
-        // const meuFirebaseConfig = {
-        //     apiKey: "COLE_SUA_API_KEY_AQUI", // <-- INSIRA SUA API KEY AQUI
-        //     authDomain: "nosso-money-1737e.firebaseapp.com",
-        //     projectId: "nosso-money-1737e",
-        //     storageBucket: "nosso-money-1737e.firebasestorage.app",
-        //     messagingSenderId: "143232679060",
-        //     appId: "1:143232679060:web:nosso-money-app"
-        // };
+        };
 
         let db = null;
         let auth = null;
@@ -859,16 +848,8 @@
         };
 
         try {
-            let activeConfig = null;
-
-            if (meuFirebaseConfig && meuFirebaseConfig.apiKey && meuFirebaseConfig.apiKey !== "COLE_SUA_API_KEY_AQUI") {
-                activeConfig = meuFirebaseConfig;
-            } else if (typeof __firebase_config !== 'undefined' && __firebase_config) {
-                activeConfig = JSON.parse(__firebase_config);
-            }
-
-            if (activeConfig) {
-                const app = initializeApp(activeConfig);
+            if (firebaseConfig && firebaseConfig.apiKey) {
+                const app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
                 auth = getAuth(app);
 
