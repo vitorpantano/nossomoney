@@ -114,7 +114,7 @@
                     <span id="syncDot" class="w-2 h-2 rounded-full bg-amber-400 mr-2 animate-pulse"></span>
                     <span id="syncText">Conectando...</span>
                 </span>
-                <button id="manualSyncBtn" title="Sincronizar dados" class="text-slate-400 hover:text-emerald-600 transition">
+                <button id="manualSyncBtn" onclick="window.refreshUI()" title="Sincronizar dados" class="text-slate-400 hover:text-emerald-600 transition">
                     <i class="fa-solid fa-rotate text-xs"></i>
                 </button>
             </div>
@@ -138,7 +138,6 @@
                         <i class="fa-solid fa-heart text-pink-500 w-5"></i>
                         <span>Recados ❤️</span>
                     </div>
-                    <span id="unreadBadge" class="hidden bg-pink-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">Novo</span>
                 </button>
                 <button onclick="switchTab('configuracoes')" id="nav-configuracoes" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-medium text-sm transition-all text-slate-600 hover:bg-slate-50 hover:text-slate-900">
                     <i class="fa-solid fa-sliders w-5"></i>
@@ -235,7 +234,7 @@
                         <div class="flex items-baseline space-x-3 mt-1">
                             <h3 id="saldoUnificadoText" class="text-3xl md:text-5xl font-extrabold tracking-tight text-white">R$ 0,00</h3>
                             <span id="saldoBadge" class="text-xs px-2.5 py-1 rounded-full font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                                Positivo
+                                Neutro
                             </span>
                         </div>
                     </div>
@@ -265,8 +264,8 @@
                             </div>
                         </div>
                         <div class="text-right text-xs text-slate-400 space-y-0.5">
-                            <p>Rec: <span id="vitorTotalRecText" class="text-emerald-400 font-medium">R$ 0</span></p>
-                            <p>Desp: <span id="vitorTotalDespText" class="text-rose-400 font-medium">R$ 0</span></p>
+                            <p>Rec: <span id="vitorTotalRecText" class="text-emerald-400 font-medium">R$ 0,00</span></p>
+                            <p>Desp: <span id="vitorTotalDespText" class="text-rose-400 font-medium">R$ 0,00</span></p>
                         </div>
                     </div>
 
@@ -282,14 +281,14 @@
                             </div>
                         </div>
                         <div class="text-right text-xs text-slate-400 space-y-0.5">
-                            <p>Rec: <span id="thaisTotalRecText" class="text-emerald-400 font-medium">R$ 0</span></p>
-                            <p>Desp: <span id="thaisTotalDespText" class="text-rose-400 font-medium">R$ 0</span></p>
+                            <p>Rec: <span id="thaisTotalRecText" class="text-emerald-400 font-medium">R$ 0,00</span></p>
+                            <p>Desp: <span id="thaisTotalDespText" class="text-rose-400 font-medium">R$ 0,00</span></p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Block A & B: Structured Financial Tables (Inspired by Reference Image 1) -->
+            <!-- Block A & B: Structured Financial Tables -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                 <!-- RECEITAS BREAKDOWN CARD -->
@@ -465,7 +464,7 @@
                     <div>
                         <span class="text-xs font-bold uppercase tracking-wider text-pink-600">Cantinho do Casal</span>
                         <p id="dashboardNotePreview" class="text-sm font-medium text-slate-700 italic mt-0.5 line-clamp-1">
-                            "Thais, mais importante que organizar nossas contas é construir nossa vida juntos. Amo você! ❤️"
+                            "Nenhum recado cadastrado ainda..."
                         </p>
                     </div>
                 </div>
@@ -537,7 +536,7 @@
                 </div>
             </div>
 
-            <!-- Table Container (Inspired by Reference Image 2) -->
+            <!-- Table Container -->
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse min-w-[750px]">
@@ -682,27 +681,27 @@
                         <i class="fa-solid fa-rotate-right text-emerald-600"></i>
                         <span>Gerador de Lançamentos Recorrentes</span>
                     </h3>
-                    <p class="text-xs text-slate-500">Duplica os lançamentos de mês anterior para o mês selecionado no topo para economizar tempo.</p>
+                    <p class="text-xs text-slate-500">Duplica os lançamentos do mês anterior para o mês selecionado no topo para economizar tempo.</p>
 
                     <button onclick="generateRecurringItems()" class="w-full py-2.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-xs rounded-xl border border-emerald-200 transition">
                         Copiar Lançamentos do Mês Anterior
                     </button>
                 </div>
 
-                <!-- Export & Backup -->
+                <!-- Export & Data Clear -->
                 <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-4">
                     <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
                         <i class="fa-solid fa-file-export text-sky-600"></i>
-                        <span>Exportação e Backup</span>
+                        <span>Exportação e Banco de Dados</span>
                     </h3>
-                    <p class="text-xs text-slate-500">Baixe relatórios das suas finanças em formato CSV compatível com Excel.</p>
+                    <p class="text-xs text-slate-500">Baixe relatórios das suas finanças em formato CSV ou resete totalmente as informações.</p>
 
                     <div class="flex gap-3">
                         <button onclick="exportToCSV()" class="flex-1 py-2.5 bg-sky-50 hover:bg-sky-100 text-sky-700 font-bold text-xs rounded-xl border border-sky-200 transition flex items-center justify-center gap-2">
                             <i class="fa-solid fa-file-csv"></i> Exportar Mês em CSV
                         </button>
-                        <button onclick="resetDataWithConfirmation()" class="py-2.5 px-4 bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs rounded-xl border border-rose-200 transition" title="Restaurar dados padrão de teste">
-                            Resetar
+                        <button onclick="clearAllDatabaseWithConfirmation()" class="py-2.5 px-4 bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs rounded-xl border border-rose-200 transition flex items-center gap-1" title="Zerar todos os lançamentos">
+                            <i class="fa-solid fa-trash-can"></i> Zerar Banco
                         </button>
                     </div>
                 </div>
@@ -809,90 +808,63 @@
     <!-- Firebase Scripts (Module Import) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // ==============================================================================
-        // 🚀 PARA HOSPEDAR NO GITHUB COM SEU PRÓPRIO FIREBASE:
-        // Descomente o bloco abaixo e cole as credenciais do seu projeto Firebase!
+        // 🚀 CONFIGURAÇÃO DO SEU FIREBASE ("Nosso Money")
         // ==============================================================================
-        const meuFirebaseConfig = null; // Quando for para o GitHub, troque 'null' pelo objeto abaixo:
-        /*
-        const meuFirebaseConfig = {
-            apiKey: "SUA_API_KEY",
-            authDomain: "seu-projeto.firebaseapp.com",
-            projectId: "seu-projeto",
-            storageBucket: "seu-projeto.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef"
-        };
-        */
+        // COLE SUA apiKey QUE COMEÇA COM "AIzaSy..." ABAIXO:
+        const firebaseConfig = {
+            apiKey: "AIzaSyDmj3DbCQQ5BKm0WiBpGeF8d6SwWbKtR54",
+            authDomain: "nosso-money-1737e.firebaseapp.com",
+            projectId: "nosso-money-1737e",
+            storageBucket: "nosso-money-1737e.firebasestorage.app",
+            messagingSenderId: "143232679060",
+            appId: "1:143232679060:web:3e4d32fa59d1f425554881",
+            measurementId: "G-8FCMG82TTV"
+            };
+        
+        
+        // const meuFirebaseConfig = {
+        //     apiKey: "COLE_SUA_API_KEY_AQUI", // <-- INSIRA SUA API KEY AQUI
+        //     authDomain: "nosso-money-1737e.firebaseapp.com",
+        //     projectId: "nosso-money-1737e",
+        //     storageBucket: "nosso-money-1737e.firebasestorage.app",
+        //     messagingSenderId: "143232679060",
+        //     appId: "1:143232679060:web:nosso-money-app"
+        // };
 
-        // Firebase Setup Config
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'financas-vitor-thais-app';
         let db = null;
         let auth = null;
         let currentUser = null;
 
-        // Caminho do Banco de Dados
-        // Nota: Quando você colocar no GitHub, pode mudar este array para algo 
-        // mais limpo, como: const DATA_COLLECTION_PATH = ['financas', 'casal_data'];
-        let DATA_COLLECTION_PATH = ['artifacts', appId, 'public', 'data'];
-        if (meuFirebaseConfig) {
-            DATA_COLLECTION_PATH = ['financas', 'casal_data'];
-        }
+        // Caminho no Firestore simplificado
+        const DOC_PATH = ['financas', 'casal_data'];
 
-        // Initial Seed Data (Inspired by Reference Image 2)
-        const initialSeedData = {
-            lancamentos: [
-                // Thais items from image reference
-                { id: "1", descricao: "Desenrola 29 de 59", valor: 67.00, tipo: "PAGAMENTO", quem: "THAIS", status: "PENDENTE", natureza: "Despesa", vencimento: "2026-11-10" },
-                { id: "2", descricao: "Itaú 33 de 37", valor: 120.00, tipo: "PAGAMENTO", quem: "THAIS", status: "PENDENTE", natureza: "Despesa", vencimento: "2026-11-12" },
-                { id: "3", descricao: "Faculdade", valor: 69.30, tipo: "PAGAMENTO", quem: "THAIS", status: "PENDENTE", natureza: "Despesa", vencimento: "2026-11-15" },
-                { id: "4", descricao: "Nubank", valor: 1509.57, tipo: "PAGAMENTO", quem: "THAIS", status: "PENDENTE", natureza: "Despesa", vencimento: "2026-11-20" },
-                { id: "5", descricao: "Dentista", valor: 120.00, tipo: "PAGAMENTO", quem: "THAIS", status: "PENDENTE", natureza: "Despesa", vencimento: "2026-11-22" },
-                { id: "6", descricao: "Lentes 1 de 3", valor: 114.00, tipo: "PAGAMENTO", quem: "THAIS", status: "PENDENTE", natureza: "Despesa", vencimento: "2026-11-25" },
-                { id: "7", descricao: "Claro", valor: 73.90, tipo: "VALE", quem: "THAIS", status: "PENDENTE", natureza: "Despesa", vencimento: "2026-11-05" },
-                { id: "8", descricao: "Shopee pay*", valor: 1030.71, tipo: "VALE", quem: "THAIS", status: "PENDENTE", natureza: "Despesa", vencimento: "2026-11-08" },
-                { id: "9", descricao: "Aluguel", valor: 1007.64, tipo: "VALE", quem: "THAIS", status: "PENDENTE", natureza: "Despesa", vencimento: "2026-11-10" },
-                { id: "10", descricao: "IPTU", valor: 192.36, tipo: "VALE", quem: "THAIS", status: "PENDENTE", natureza: "Despesa", vencimento: "2026-11-15" },
-
-                // Vitor items from image reference
-                { id: "11", descricao: "Pensão", valor: 350.00, tipo: "PAGAMENTO", quem: "VITOR", status: "PAGO", natureza: "Despesa", vencimento: "2026-11-01" },
-                { id: "12", descricao: "Moto - 47 de 48", valor: 771.95, tipo: "PAGAMENTO", quem: "VITOR", status: "PENDENTE", natureza: "Despesa", vencimento: "2026-11-10" },
-                { id: "13", descricao: "Faculdade", valor: 69.30, tipo: "PAGAMENTO", quem: "VITOR", status: "PAGO", natureza: "Despesa", vencimento: "2026-11-02" },
-                { id: "14", descricao: "Vivo", valor: 169.53, tipo: "PAGAMENTO", quem: "VITOR", status: "PAGO", natureza: "Despesa", vencimento: "2026-11-05" },
-                { id: "15", descricao: "Cartão Picpay", valor: 2350.11, tipo: "PAGAMENTO", quem: "VITOR", status: "PAGO", natureza: "Despesa", vencimento: "2026-11-08" },
-
-                // Sample Incomes (Receitas) to balance image values
-                { id: "16", descricao: "Salário Empresa", valor: 3526.37, tipo: "PAGAMENTO", quem: "VITOR", status: "PAGO", natureza: "Receita", vencimento: "2026-11-05" },
-                { id: "17", descricao: "Salário Empresa", valor: 3244.18, tipo: "PAGAMENTO", quem: "THAIS", status: "PAGO", natureza: "Receita", vencimento: "2026-11-05" },
-                { id: "18", descricao: "Vale Alimentação/Ref", valor: 2040.00, tipo: "VALE", quem: "VITOR", status: "PAGO", natureza: "Receita", vencimento: "2026-11-15" },
-                { id: "19", descricao: "Vale Alimentação/Ref", valor: 2500.00, tipo: "VALE", quem: "THAIS", status: "PAGO", natureza: "Receita", vencimento: "2026-11-15" }
-            ],
-            notes: [
-                { id: "n1", autor: "Vitor", text: "Thais, mais importante que organizar nossas contas é construir nossa vida juntos. Amo você! ❤️", data: "2026-11-01" }
-            ]
+        // Clean initial structure for production
+        const emptyBaseData = {
+            lancamentos: [],
+            notes: []
         };
 
         // Global State Window Object
         window.AppState = {
-            currentMonth: 10, // November (0-indexed)
-            currentYear: 2026,
+            currentMonth: new Date().getMonth(),
+            currentYear: new Date().getFullYear(),
             lancamentos: [],
             notes: [],
             categories: ["Faculdade", "Cartão", "Aluguel", "Saúde", "Telecom", "Transporte", "Geral"],
             charts: {}
         };
 
-        // Try initializing Firebase
         try {
             let activeConfig = null;
 
-            if (meuFirebaseConfig) {
-                activeConfig = meuFirebaseConfig; // Usa o seu Firebase próprio no GitHub
+            if (meuFirebaseConfig && meuFirebaseConfig.apiKey && meuFirebaseConfig.apiKey !== "COLE_SUA_API_KEY_AQUI") {
+                activeConfig = meuFirebaseConfig;
             } else if (typeof __firebase_config !== 'undefined' && __firebase_config) {
-                activeConfig = JSON.parse(__firebase_config); // Usa o Firebase de teste desta plataforma
+                activeConfig = JSON.parse(__firebase_config);
             }
 
             if (activeConfig) {
@@ -900,19 +872,7 @@
                 db = getFirestore(app);
                 auth = getAuth(app);
 
-                // Authenticate
-                const initAuth = async () => {
-                    if (meuFirebaseConfig) {
-                        // Autenticação anônima padrão para o seu próprio Firebase
-                        await signInAnonymously(auth);
-                    } else if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                };
-
-                initAuth().then(() => {
+                signInAnonymously(auth).then(() => {
                     onAuthStateChanged(auth, (user) => {
                         currentUser = user;
                         if (user) {
@@ -921,43 +881,43 @@
                         }
                     });
                 }).catch(err => {
-                    console.warn("Auth error, using local fallback:", err);
+                    console.warn("Erro ao autenticar no Firebase, usando modo local:", err);
                     setupLocalDataFallback();
                 });
             } else {
+                console.warn("API Key não informada. Usando Modo Local.");
                 setupLocalDataFallback();
             }
         } catch (e) {
-            console.warn("Firebase not loaded, running in offline mode", e);
+            console.warn("Firebase offline ou erro de config:", e);
             setupLocalDataFallback();
         }
 
-        // Setup Local Storage Fallback
+        // Local storage backup
         function setupLocalDataFallback() {
             updateSyncStatus('offline', 'Modo Local');
             const saved = localStorage.getItem('financas_vt_data');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
-                    window.AppState.lancamentos = parsed.lancamentos || initialSeedData.lancamentos;
-                    window.AppState.notes = parsed.notes || initialSeedData.notes;
+                    window.AppState.lancamentos = parsed.lancamentos || [];
+                    window.AppState.notes = parsed.notes || [];
                 } catch(e) {
-                    window.AppState.lancamentos = initialSeedData.lancamentos;
-                    window.AppState.notes = initialSeedData.notes;
+                    window.AppState.lancamentos = [];
+                    window.AppState.notes = [];
                 }
             } else {
-                window.AppState.lancamentos = initialSeedData.lancamentos;
-                window.AppState.notes = initialSeedData.notes;
+                window.AppState.lancamentos = [];
+                window.AppState.notes = [];
                 saveToLocalStorage();
             }
             window.refreshUI();
         }
 
-        // Listen to Real-Time Updates from Firestore
         function listenToCloudData() {
-            if (!db || !currentUser) return;
+            if (!db) return;
 
-            const docRef = doc(db, DATA_COLLECTION_PATH[0], DATA_COLLECTION_PATH[1], DATA_COLLECTION_PATH[2], DATA_COLLECTION_PATH[3], 'shared_doc');
+            const docRef = doc(db, DOC_PATH[0], DOC_PATH[1]);
 
             onSnapshot(docRef, (snap) => {
                 if (snap.exists()) {
@@ -965,17 +925,15 @@
                     window.AppState.lancamentos = data.lancamentos || [];
                     window.AppState.notes = data.notes || [];
                 } else {
-                    // Seed initial data if document doesn't exist
-                    saveDataToCloud(initialSeedData);
+                    saveDataToCloud(emptyBaseData);
                 }
                 window.refreshUI();
             }, (error) => {
-                console.error("Firestore error:", error);
+                console.error("Erro ao ouvir dados do Firestore:", error);
                 setupLocalDataFallback();
             });
         }
 
-        // Save Data Function
         window.saveData = function() {
             saveToLocalStorage();
             if (db && currentUser) {
@@ -995,10 +953,10 @@
 
         async function saveDataToCloud(payload) {
             try {
-                const docRef = doc(db, DATA_COLLECTION_PATH[0], DATA_COLLECTION_PATH[1], DATA_COLLECTION_PATH[2], DATA_COLLECTION_PATH[3], 'shared_doc');
+                const docRef = doc(db, DOC_PATH[0], DOC_PATH[1]);
                 await setDoc(docRef, payload, { merge: true });
             } catch (e) {
-                console.error("Cloud save failed:", e);
+                console.error("Falha ao salvar no Firebase:", e);
             }
         }
 
@@ -1016,14 +974,12 @@
         }
     </script>
 
-    <!-- Main Application UI Logic -->
+    <!-- Main Application Logic -->
     <script>
-        // Currency Formatter (BRL)
         const formatBRL = (val) => {
             return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val || 0);
         };
 
-        // Initialize UI & Event Handlers
         window.onload = function() {
             populateYearSelector();
             setCurrentMonth();
@@ -1031,7 +987,6 @@
             renderCategories();
         };
 
-        // Mobile Menu Toggle
         function setupMobileMenu() {
             const btn = document.getElementById('mobileMenuBtn');
             const sidebar = document.getElementById('sidebar');
@@ -1047,7 +1002,6 @@
             }
         }
 
-        // Populate Years Dropdown
         function populateYearSelector() {
             const select = document.getElementById('yearSelect');
             if (!select) return;
@@ -1061,7 +1015,6 @@
             }
         }
 
-        // Set Current Date
         function setCurrentMonth() {
             const now = new Date();
             window.AppState.currentMonth = now.getMonth();
@@ -1070,7 +1023,6 @@
             document.getElementById('monthSelect').value = window.AppState.currentMonth;
             document.getElementById('yearSelect').value = window.AppState.currentYear;
 
-            // Set inputs in comparison tab too
             const monthStr = String(window.AppState.currentMonth + 1).padStart(2, '0');
             const prevMonthStr = String(window.AppState.currentMonth === 0 ? 12 : window.AppState.currentMonth).padStart(2, '0');
             const prevYear = window.AppState.currentMonth === 0 ? window.AppState.currentYear - 1 : window.AppState.currentYear;
@@ -1106,7 +1058,6 @@
             refreshUI();
         }
 
-        // Refresh all elements across active views
         window.refreshUI = function() {
             calculateAndRenderDashboard();
             renderLancamentosTable();
@@ -1115,7 +1066,6 @@
             checkAlerts();
         };
 
-        // Navigation Tab Switcher
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(el => {
@@ -1132,7 +1082,6 @@
                 activeNav.classList.remove('text-slate-600');
             }
 
-            // Titles updates
             const titles = {
                 dashboard: ['Dashboard Financeiro', 'Resumo consolidado do casal'],
                 lancamentos: ['Lançamentos Financeiros', 'Gerencie receitas, despesas e pagamentos'],
@@ -1146,7 +1095,6 @@
                 document.getElementById('pageSubtitle').innerText = titles[tabName][1];
             }
 
-            // Close mobile menu if open
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('mobileOverlay');
             if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
@@ -1154,11 +1102,9 @@
                 overlay.classList.add('hidden');
             }
 
-            // Refresh tab specific content
             if (tabName === 'historico') renderHistoryComparison();
         }
 
-        // Filter items for current selected month/year
         function getFilteredLancamentosForCurrentMonth() {
             return window.AppState.lancamentos.filter(item => {
                 if (!item.vencimento) return false;
@@ -1167,11 +1113,9 @@
             });
         }
 
-        // Calculate and Render Dashboard Data (Block A, B, C, D)
         function calculateAndRenderDashboard() {
             const currentItems = getFilteredLancamentosForCurrentMonth();
 
-            // Structure to hold sums
             const rec = {
                 vitor: { pagamento: 0, vale: 0, total: 0 },
                 thais: { pagamento: 0, vale: 0, total: 0 },
@@ -1188,8 +1132,8 @@
 
             currentItems.forEach(item => {
                 const val = parseFloat(item.valor) || 0;
-                const quem = item.quem; // VITOR or THAIS
-                const tipo = item.tipo; // PAGAMENTO or VALE
+                const quem = item.quem;
+                const tipo = item.tipo;
                 const isRec = item.natureza === 'Receita';
 
                 if (item.status === 'PENDENTE') pendentesCount++;
@@ -1208,11 +1152,9 @@
                     else rec.totalVale += val;
                     rec.unificada += val;
                 } else {
-                    // Despesa
                     if (quem === 'VITOR') {
                         if (tipo === 'PAGAMENTO') desp.vitor.pagamento += val;
                         else desp.vitor.vale += val;
-                        rec.vitor.total -= 0; // maintain for layout logic
                         desp.vitor.total += val;
                     } else if (quem === 'THAIS') {
                         if (tipo === 'PAGAMENTO') desp.thais.pagamento += val;
@@ -1225,7 +1167,7 @@
                 }
             });
 
-            // Update RECEITAS Elements
+            // Update RECEITAS
             document.getElementById('recVitorPagamento').innerText = formatBRL(rec.vitor.pagamento);
             document.getElementById('recVitorVale').innerText = formatBRL(rec.vitor.vale);
             document.getElementById('recVitorTotal').innerText = formatBRL(rec.vitor.total);
@@ -1239,7 +1181,7 @@
             document.getElementById('recTotalGeral').innerText = formatBRL(rec.unificada);
             document.getElementById('receitaUnificadaText').innerText = formatBRL(rec.unificada);
 
-            // Update DESPESAS Elements
+            // Update DESPESAS
             document.getElementById('despVitorPagamento').innerText = formatBRL(desp.vitor.pagamento);
             document.getElementById('despVitorVale').innerText = formatBRL(desp.vitor.vale);
             document.getElementById('despVitorTotal').innerText = formatBRL(desp.vitor.total);
@@ -1277,7 +1219,6 @@
                 saldoBadge.className = "text-xs px-2.5 py-1 rounded-full font-bold bg-slate-500/20 text-slate-300 border border-slate-500/30";
             }
 
-            // Individual Balances UI
             document.getElementById('saldoVitorText').innerText = formatBRL(saldoVitor);
             document.getElementById('vitorTotalRecText').innerText = formatBRL(rec.vitor.total);
             document.getElementById('vitorTotalDespText').innerText = formatBRL(desp.vitor.total);
@@ -1286,20 +1227,16 @@
             document.getElementById('thaisTotalRecText').innerText = formatBRL(rec.thais.total);
             document.getElementById('thaisTotalDespText').innerText = formatBRL(desp.thais.total);
 
-            // Origin Summary Cards
             document.getElementById('totalPagamentoReceita').innerText = "+ " + formatBRL(rec.totalPagamento);
             document.getElementById('totalPagamentoDespesa').innerText = "- " + formatBRL(desp.totalPagamento);
             document.getElementById('totalValeReceita').innerText = "+ " + formatBRL(rec.totalVale);
             document.getElementById('totalValeDespesa').innerText = "- " + formatBRL(desp.totalVale);
             document.getElementById('pendentesCount').innerText = `${pendentesCount} itens`;
 
-            // Render Charts
             renderDashboardCharts(rec.unificada, desp.unificada, desp.vitor.total, desp.thais.total);
         }
 
-        // Render Dashboard Visual Charts
         function renderDashboardCharts(totalRec, totalDesp, despVitor, despThais) {
-            // Chart 1: Receitas vs Despesas
             const ctx1 = document.getElementById('chartReceitaDespesa');
             if (ctx1) {
                 if (window.AppState.charts.recDesp) window.AppState.charts.recDesp.destroy();
@@ -1322,7 +1259,6 @@
                 });
             }
 
-            // Chart 2: Despesas Vitor vs Thais
             const ctx2 = document.getElementById('chartPessoa');
             if (ctx2) {
                 if (window.AppState.charts.pessoa) window.AppState.charts.pessoa.destroy();
@@ -1345,7 +1281,6 @@
             }
         }
 
-        // Check and Show Alert Banner for Overdue or Soon-to-expire bills
         function checkAlerts() {
             const banner = document.getElementById('alertBanner');
             const bannerText = document.getElementById('alertBannerText');
@@ -1377,14 +1312,12 @@
             }
         }
 
-        // ==================== LANÇAMENTOS TABLE LOGIC ====================
         function renderLancamentosTable() {
             const tbody = document.getElementById('lancamentosTableBody');
             if (!tbody) return;
 
             let items = getFilteredLancamentosForCurrentMonth();
 
-            // Apply Filters
             const filterQuem = document.getElementById('filterQuem').value;
             const filterTipo = document.getElementById('filterTipo').value;
             const filterStatus = document.getElementById('filterStatus').value;
@@ -1398,7 +1331,6 @@
             if (filterNatureza !== 'TODOS') items = items.filter(i => i.natureza === filterNatureza);
             if (searchVal) items = items.filter(i => i.descricao.toLowerCase().includes(searchVal));
 
-            // Sorting
             items.sort((a, b) => {
                 if (sortBy === 'vencimento') return a.vencimento.localeCompare(b.vencimento);
                 if (sortBy === 'valorDesc') return b.valor - a.valor;
@@ -1417,7 +1349,7 @@
                     <tr>
                         <td colspan="7" class="p-8 text-center text-slate-400 text-sm">
                             <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
-                            Nenhum lançamento encontrado para os filtros selecionados.
+                            Nenhum lançamento cadastrado neste mês. Clique em <strong>+ Novo Lançamento</strong> para adicionar!
                         </td>
                     </tr>
                 `;
@@ -1430,11 +1362,9 @@
                     if (isPaid) sumPaid += val;
                     else sumPending += val;
 
-                    // Formatted Date
                     const dateParts = item.vencimento.split('-');
                     const formattedDate = dateParts.length === 3 ? `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}` : item.vencimento;
 
-                    // Badge Styles
                     const statusClass = isPaid
                         ? "bg-emerald-700 text-white font-bold"
                         : "bg-amber-200 text-amber-900 font-bold border border-amber-300";
@@ -1452,15 +1382,12 @@
                     const tr = document.createElement('tr');
                     tr.className = "hover:bg-slate-50 transition border-b border-slate-100";
                     tr.innerHTML = `
-                        <!-- Status Selector Button -->
                         <td class="p-3">
                             <button onclick="toggleStatus('${item.id}')" title="Clique para alterar status" class="px-2.5 py-1 rounded-lg text-xs tracking-wide shadow-sm flex items-center justify-between gap-1 w-24 ${statusClass}">
                                 <span>${item.status}</span>
                                 <i class="fa-solid fa-chevron-down text-[9px] opacity-70"></i>
                             </button>
                         </td>
-
-                        <!-- Descrição -->
                         <td class="p-3 font-medium text-slate-800">
                             <div class="flex items-center gap-2">
                                 <span class="${isReceita ? 'text-emerald-500' : 'text-rose-500'} text-xs">
@@ -1469,32 +1396,22 @@
                                 <span>${item.descricao}</span>
                             </div>
                         </td>
-
-                        <!-- Valor -->
                         <td class="p-3 text-right ${valColor}">
                             ${isReceita ? '+' : '-'} ${formatBRL(val)}
                         </td>
-
-                        <!-- Tipo -->
                         <td class="p-3 text-center">
                             <span class="px-2 py-0.5 rounded-md text-[11px] font-semibold ${tipoClass}">
                                 ${item.tipo}
                             </span>
                         </td>
-
-                        <!-- Quem -->
                         <td class="p-3 text-center">
                             <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold ${quemClass}">
                                 ${item.quem}
                             </span>
                         </td>
-
-                        <!-- Vencimento -->
                         <td class="p-3 text-center text-xs text-slate-600 font-medium">
                             ${formattedDate}
                         </td>
-
-                        <!-- Ações -->
                         <td class="p-3 text-center">
                             <div class="flex items-center justify-center space-x-1">
                                 <button onclick="openModal('modalLancamento', '${item.id}')" class="p-1.5 text-slate-400 hover:text-sky-600 rounded-lg hover:bg-slate-100 transition" title="Editar">
@@ -1513,13 +1430,11 @@
                 });
             }
 
-            // Footer Summary Updates
             document.getElementById('tableCountText').innerText = `Mostrando ${items.length} de ${getFilteredLancamentosForCurrentMonth().length} lançamentos`;
             document.getElementById('tablePendingTotal').innerText = formatBRL(sumPending);
             document.getElementById('tablePaidTotal').innerText = formatBRL(sumPaid);
         }
 
-        // Toggle Status between PENDENTE and PAGO
         function toggleStatus(id) {
             const index = window.AppState.lancamentos.findIndex(i => i.id === id);
             if (index !== -1) {
@@ -1529,7 +1444,6 @@
             }
         }
 
-        // Duplicate Item
         function duplicateLancamento(id) {
             const item = window.AppState.lancamentos.find(i => i.id === id);
             if (item) {
@@ -1544,7 +1458,6 @@
             }
         }
 
-        // Delete Item with Confirmation Modal/Prompt
         function deleteLancamentoWithConfirmation(id) {
             if (confirm("Tem certeza que deseja excluir este lançamento? Esta ação não pode ser desfeita.")) {
                 window.AppState.lancamentos = window.AppState.lancamentos.filter(i => i.id !== id);
@@ -1553,7 +1466,6 @@
             }
         }
 
-        // Open Modal (Add or Edit Mode)
         function openModal(modalId, itemIdOrMeta = null) {
             const modal = document.getElementById(modalId);
             if (!modal) return;
@@ -1561,7 +1473,6 @@
             const form = document.getElementById('lancamentoForm');
             form.reset();
 
-            // Set Default Vencimento to current selected month
             const defaultDay = new Date().getDate();
             const year = window.AppState.currentYear;
             const monthStr = String(window.AppState.currentMonth + 1).padStart(2, '0');
@@ -1569,7 +1480,6 @@
             document.getElementById('inputVencimento').value = `${year}-${monthStr}-${dayStr}`;
 
             if (typeof itemIdOrMeta === 'string') {
-                // Edit Mode
                 const item = window.AppState.lancamentos.find(i => i.id === itemIdOrMeta);
                 if (item) {
                     document.getElementById('modalTitle').innerText = 'Editar Lançamento';
@@ -1585,7 +1495,6 @@
                     else document.getElementById('natDespesa').checked = true;
                 }
             } else if (typeof itemIdOrMeta === 'object' && itemIdOrMeta !== null) {
-                // Pre-set Natureza (Receita or Despesa)
                 document.getElementById('modalTitle').innerText = 'Novo Lançamento';
                 document.getElementById('lancamentoId').value = '';
                 if (itemIdOrMeta.tipo === 'Receita') document.getElementById('natReceita').checked = true;
@@ -1603,7 +1512,6 @@
             if (modal) modal.classList.add('hidden');
         }
 
-        // Save Form Handler
         function handleSaveLancamento(e) {
             e.preventDefault();
 
@@ -1622,13 +1530,11 @@
             }
 
             if (id) {
-                // Edit existing
                 const index = window.AppState.lancamentos.findIndex(i => i.id === id);
                 if (index !== -1) {
                     window.AppState.lancamentos[index] = { id, descricao: desc, valor: val, tipo, quem, status, vencimento, natureza };
                 }
             } else {
-                // Add new
                 const newItem = {
                     id: Date.now().toString(),
                     descricao: desc,
@@ -1647,7 +1553,6 @@
             refreshUI();
         }
 
-        // ==================== RECADOS WALL LOGIC ====================
         function renderNotesWall() {
             const container = document.getElementById('notesContainer');
             if (!container) return;
@@ -1658,6 +1563,8 @@
             if (notes.length > 0) {
                 const latestNote = notes[notes.length - 1];
                 document.getElementById('dashboardNotePreview').innerText = `"${latestNote.text}"`;
+            } else {
+                document.getElementById('dashboardNotePreview').innerText = `"Nenhum recado cadastrado ainda..."`;
             }
 
             notes.slice().reverse().forEach(note => {
@@ -1721,7 +1628,6 @@
             }
         }
 
-        // ==================== HISTÓRICO LOGIC ====================
         function getMonthData(yearMonthStr) {
             if (!yearMonthStr) return { totalRec: 0, totalDesp: 0, vitorSaldo: 0, thaisSaldo: 0 };
             const [y, m] = yearMonthStr.split('-').map(Number);
@@ -1760,7 +1666,6 @@
             const dataA = getMonthData(valA);
             const dataB = getMonthData(valB);
 
-            // Populate Card A
             document.getElementById('compLabelA').innerText = valA ? `Mês ${valA}` : 'Selecione Mês A';
             document.getElementById('compSaldoA').innerText = formatBRL(dataA.saldo);
             document.getElementById('compRecA').innerText = formatBRL(dataA.totalRec);
@@ -1768,7 +1673,6 @@
             document.getElementById('compVitorA').innerText = formatBRL(dataA.vitorSaldo);
             document.getElementById('compThaisA').innerText = formatBRL(dataA.thaisSaldo);
 
-            // Populate Card B
             document.getElementById('compLabelB').innerText = valB ? `Mês ${valB}` : 'Selecione Mês B';
             document.getElementById('compSaldoB').innerText = formatBRL(dataB.saldo);
             document.getElementById('compRecB').innerText = formatBRL(dataB.totalRec);
@@ -1783,7 +1687,6 @@
             const ctx = document.getElementById('chartHistoryTrend');
             if (!ctx) return;
 
-            // Generate last 6 months labels
             const labels = [];
             const recData = [];
             const despData = [];
@@ -1818,7 +1721,6 @@
             });
         }
 
-        // ==================== CONFIGURATIONS & EXPORT LOGIC ====================
         function renderCategories() {
             const container = document.getElementById('categoriesBadges');
             if (!container) return;
@@ -1856,7 +1758,6 @@
             if (confirm(`Deseja copiar ${prevItems.length} lançamentos do mês anterior para o mês atual?`)) {
                 let count = 0;
                 prevItems.forEach(item => {
-                    // Update date to current month/year
                     const dateParts = item.vencimento.split('-');
                     const day = dateParts[2] || '10';
                     const newMonthStr = String(curM + 1).padStart(2, '0');
@@ -1901,10 +1802,13 @@
             document.body.removeChild(link);
         }
 
-        function resetDataWithConfirmation() {
-            if (confirm("Atenção! Isso irá restaurar todos os lançamentos para os dados de teste iniciais. Deseja continuar?")) {
-                localStorage.removeItem('financas_vt_data');
-                location.reload();
+        function clearAllDatabaseWithConfirmation() {
+            if (confirm("ATENÇÃO: Você tem certeza que deseja APAGAR TODOS os lançamentos e recados cadastrados? Essa operação limpará a base inteira e não pode ser desfeita.")) {
+                window.AppState.lancamentos = [];
+                window.AppState.notes = [];
+                window.saveData();
+                refreshUI();
+                alert("Banco de dados zerado com sucesso!");
             }
         }
     </script>
